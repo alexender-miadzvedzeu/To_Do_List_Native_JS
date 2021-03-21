@@ -11,6 +11,14 @@ let store = {
     setState (state) {
         store._state = state;
     },
+    getTasksFromLocalStorage() {
+        // чтение
+        tasks = localStorage.tasks ? JSON.parse(localStorage.tasks) : [];
+    },
+    setLocalStorage() {
+        // запись
+        localStorage.tasks = JSON.stringify(store.getState());
+    },
     generateTaskId () {
         const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         let result = '';
@@ -95,12 +103,5 @@ function addDellEventToButton() {
 }
 addDellEventToButton()
 
-
-
-// запись
-localStorage.tasks = JSON.stringify(store.getState());
- 
-// чтение
-tasks = localStorage.tasks ? JSON.parse(localStorage.tasks) : [];
-
-localStorage.clear()
+console.log(localStorage)
+// localStorage.clear()
