@@ -9,7 +9,7 @@ let store = {
         return this._state;
     },
     setState (state) {
-        store._state = state;
+        return this._state = state;
     },
     getTasksFromLocalStorage() {
         // чтение
@@ -32,7 +32,7 @@ let store = {
         store.newTask = this.value;
     },
     addTask () {
-        if (this.newTask.length !== 0) {
+        if (this.newTask.length != 0) {
             return {...store, _state: [...store._state, {task: this.newTask, id: this.generateTaskId()}]}
         }
     },
@@ -70,13 +70,18 @@ reRender();
 //updateNewTask function
 let input = document.querySelector('input');
 input.addEventListener("keyup", store.updateNewTask);
+input.addEventListener("keyup", (e)=>{
+    if (e.code === "Enter" ) {
+        addTask();
+    }
+});
 input.value = store.newTask;
 
 //addTask function
 let button = document.querySelector('button');
-const addTask = () => {
-    store.addTask;
-    store.getState() === store.addTask() ? null : store.setState(store.addTask().getState()); store.setLocalStorage();
+function addTask () {
+    store.setState(store.addTask().getState());
+    store.setLocalStorage();
     reRender();
     let addedTask = document.querySelector('.task_block:last-child');
     addedTask.classList.add('added_task');
@@ -91,7 +96,8 @@ function addDellEventToButton() {
         let id = delButton.getAttribute('data-id');        
         delButton.addEventListener('click', () => {
             setTimeout(() => {
-                store.deleteTask(id) === store.getState() ? null : store.setState(store.deleteTask(id).getState()); store.setLocalStorage();
+                store.setState(store.deleteTask(id).getState());
+                store.setLocalStorage();
                 reRender();
             }, 500);
             for (let task of document.querySelectorAll('.task_block')) {

@@ -21,9 +21,8 @@
     margin-left: 3%;
 }
 .root input {
-    background: #a49751;
+    background: #cef0ee;
     border: 1px solid #726a3b;
-    box-shadow: inset 0px 0px 1px 1px;
     border-radius: 3%;
 }
 .root input::placeholder {
@@ -75,8 +74,6 @@
     position: absolute;
     transform: rotate(135deg);
 }
-
-
 
 .added_task { 
 	animation-name: add; 	
