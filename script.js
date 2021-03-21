@@ -1,8 +1,8 @@
 let store = {
     _state: [
-        {task: "task1", id: "noP6Z"},
-        {task: "task2", id: "4a75q"},
-        {task: "task3", id: "L2tou"}
+        // {task: "task1", id: "noP6Z"},
+        // {task: "task2", id: "4a75q"},
+        // {task: "task3", id: "L2tou"}
     ],
     newTask: "",
     getState () {
@@ -13,7 +13,7 @@ let store = {
     },
     getTasksFromLocalStorage() {
         // чтение
-        tasks = localStorage.tasks ? JSON.parse(localStorage.tasks) : [];
+        store._state = localStorage.tasks ? JSON.parse(localStorage.tasks) : [];
     },
     setLocalStorage() {
         // запись
@@ -53,6 +53,7 @@ const reRender = () => {
     for (let task of document.querySelectorAll('.task_block')) {
         task.remove();
     }
+    store.getTasksFromLocalStorage();
     for (let task of store.getState()) {
         root.insertAdjacentHTML("beforeend", 
         `<div class="task_block" id=${task.id}>
@@ -75,7 +76,7 @@ input.value = store.newTask;
 let button = document.querySelector('button');
 const addTask = () => {
     store.addTask;
-    store.getState() === store.addTask() ? null : store.setState(store.addTask().getState()) 
+    store.getState() === store.addTask() ? null : store.setState(store.addTask().getState()); store.setLocalStorage();
     reRender();
     let addedTask = document.querySelector('.task_block:last-child');
     addedTask.classList.add('added_task');
@@ -90,7 +91,7 @@ function addDellEventToButton() {
         let id = delButton.getAttribute('data-id');        
         delButton.addEventListener('click', () => {
             setTimeout(() => {
-                store.deleteTask(id) === store.getState() ? null : store.setState(store.deleteTask(id).getState())
+                store.deleteTask(id) === store.getState() ? null : store.setState(store.deleteTask(id).getState()); store.setLocalStorage();
                 reRender();
             }, 500);
             for (let task of document.querySelectorAll('.task_block')) {
@@ -102,6 +103,3 @@ function addDellEventToButton() {
     }
 }
 addDellEventToButton()
-
-console.log(localStorage)
-// localStorage.clear()
