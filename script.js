@@ -94,3 +94,13 @@ function addDellEventToButton() {
     }
 }
 addDellEventToButton()
+
+
+
+// запись
+localStorage.tasks = JSON.stringify(store.getState());
+ 
+// чтение
+tasks = localStorage.tasks ? JSON.parse(localStorage.tasks) : [];
+
+localStorage.clear()
